@@ -21,10 +21,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Bot\GoodBoyTelegramBot.py" />
-    <Compile Include="Bot\UserDataB.py">
+    <Compile Include="Bot\config.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Bot\GoodBoyTelegramBot.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bot\" />
