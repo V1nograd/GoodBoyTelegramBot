@@ -18,29 +18,39 @@ def keyboard():
 #def keyincident():
 #	markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
 #	btn2 = types.KeyboardButton('🎰 Крути барабан 🎲')
-#	markup.add(btn2)
+#	markup.add(btn2)x
 #	return markup
 
 reply_markup=keyboard()
 
+# Привестие нового учасника
+@bot.message_handler(content_types=["new_chat_members"])
+def handler_new_member(message):
+    user_name = message.new_chat_members[0].first_name
+    random.seed()
+    chooise = random.randint(0, 1)
+    print("new_chat_members random", chooise)
+    if(chooise == 0):
+        bot.send_message(message.chat.id, f"Добро пожаловать кусок мяса, {user_name}! 👋")
+    elif(chooise == 1):
+        bot.send_message(message.chat.id, f"Привет, {user_name}! 👋")
+
 @bot.message_handler(commands=['start'])
-def send_welcome(message):
+def send_start(message):
     bot.send_message(message.chat.id, f'''Приветствую {message.from_user.first_name} 👋''', reply_markup=keyboard())
 
-
 @bot.message_handler(commands=['help'])
-def send_welcome(message):
+def send_help(message):
     bot.reply_to(message, f' Сорян {message.from_user.first_name} я еще в бета версии, команды: /start /help /go /incident /kolya')
 
 @bot.message_handler(commands=['go'])
-def send_welcome(message):
+def send_go(message):
     bot.send_message(message.chat.id, f'Ты пидор! ✅')
 
 @bot.message_handler(commands=['incident'])
-def handle_text(message):
+def chooise_incident(message):
          random.seed()
          chooise = random.randint(1, 7)
-
 
          bot.send_message(message.chat.id, f'Начинаем проведения оперативно-розыскных действий 👮')
          time.sleep(1)
@@ -66,21 +76,11 @@ def handle_text(message):
              bot.send_message(message.chat.id, f'🏅 Жека 🏅')
          else:
              bot.send_message(message.chat.id, f'Братанчик что-то пошло не так обратись к @Alx326')
-         #bot.send_message(message.chat.id, f'random: {chooise}' )
          print(chooise)
-
-
-@bot.message_handler(commands=['kolya'])
-def send_welcome(message):
-    bot.reply_to(message, f'Что ты хочешь!')
-
-@bot.message_handler(commands=['died'])
-def send_welcome(message):
-    bot.reply_to(message, f'Я жив!')
 
 @bot.message_handler(commands=['BD'])
 def send_welcome(message):
-    bot.reply_to(message, f'Выставляйся Дима!')
+    bot.reply_to(message, f'Пиздуй работать {message.from_user.username} !')
 
 # если бот получает в ответ привет идет вызов обработчика событий
 
@@ -91,8 +91,9 @@ def get_text_messages(message):
     elif message.text == '🎰 Крути барабан 🎲':
         bot.send_message(message.from_user.id, 'Выбераем жертву 🐀', commands=['incident'])
     else:
-        bot.send_message(message.from_user.id, 'Не понимаю, в жопу иди.')
+        bot.send_message(message.from_user.id, f'{message.from_user.username} что ты там говорил про чик чирик?')
 
 print("Bot work!")
 # бот работает пока работает программа
-bot.polling(none_stop=True)
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
