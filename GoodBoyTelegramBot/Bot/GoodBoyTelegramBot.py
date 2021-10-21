@@ -16,7 +16,7 @@ def keyBoardButton(message):
     markup.row(itembutton1)
     markup.row(itembutton2)
     markup.row(itembutton3)
-    bot.send_message(message.chat.id, 'Нажмите одну из кнопок', reply_markup = markup)
+    bot.send_message(message.chat.id, reply_markup = markup)
     
 
 
@@ -84,9 +84,10 @@ def chooise_incident(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
-    if message.text == '✌ Привет ✌':
+    if message.text == "✌ Привет ✌":
         bot.reply_to(message, f'Йоу! {message.from_user.username} Если нужна помощь нажми: /help ☺') #message.from_user.username вывод имени пользователя в чате
-    elif message.text == '🎰 Крути барабан 🎲':
+    elif message.text == "🎰 Крути барабан 🎲":
+        bot.send_message(message.chat.id, '/incident')
         bot.message_handler(commands=['incident'])
     else:
         bot.send_message(message.from_user.id, f'{message.from_user.username} что ты там говорил про чик чирик?')
