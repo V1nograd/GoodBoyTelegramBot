@@ -39,11 +39,15 @@ def send_start(message):
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-    bot.reply_to(message, f' Йоу {message.from_user.first_name} уже лучше но я еще в бета версии, команды: \n /start \n /help \n /onkeyboard \n /db \n /go \n')
+    bot.send_message(message.chat.id, f' Йоу {message.from_user.first_name} уже лучше но я еще в бета версии, команды: \n /start \n /help \n /onkeyboard \n /db \n /go \n')
 
 @bot.message_handler(commands=['go'])
 def send_go(message):
     bot.send_message(message.chat.id, f'Ты пидор! ✅')
+
+@bot.message_handler(commands=['db'])
+def send_welcome(message):
+    bot.reply_to(message, f'Пиздуй работать {message.from_user.username} !')
 
 @bot.message_handler(commands=['incident'])
 def chooise_incident(message):
@@ -75,10 +79,6 @@ def chooise_incident(message):
          else:
              bot.send_message(message.chat.id, f'Братанчик что-то пошло не так обратись к @Alx326')
          print(chooise)
-
-@bot.message_handler(commands=['db'])
-def send_welcome(message):
-    bot.reply_to(message, f'Пиздуй работать {message.from_user.username} !')
 
 # если бот получает в ответ привет идет вызов обработчика событий
 
