@@ -6,24 +6,22 @@ from config import token
 
 bot = telebot.TeleBot(token)
 
+
+@bot.message_handler(commands=['onkeyboard'])
+def keyBoardButton(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard = True, one_time_keyboard=True)
+    itembutton1 = types.KeyboardButton("✌ Привет ✌")
+    itembutton2 = types.KeyboardButton("🎰 Крути барабан 🎲")
+    itembutton3 = types.KeyboardButton("Close")
+    markup.row(itembutton1)
+    markup.row(itembutton2)
+    markup.row(itembutton3)
+    bot.send_message(message.chat.id, 'Нажмите одну из кнопок', reply_markup = markup)
+    
+
+
 #Обработчик собитий когда
 
-def keyboard():
-	markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-	btn1 = types.KeyboardButton('✌ Привет ✌')
-	markup.add(btn1)
-	return markup
-
-# NOT WORKING YET BUT IM IN THE CREATING PROCESS
-#def keyincident():
-#	markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-#	btn2 = types.KeyboardButton('🎰 Крути барабан 🎲')
-#	markup.add(btn2)x
-#	return markup
-
-reply_markup=keyboard()
-
-# Привестие нового учасника
 @bot.message_handler(content_types=["new_chat_members"])
 def handler_new_member(message):
     user_name = message.new_chat_members[0].first_name
@@ -37,11 +35,11 @@ def handler_new_member(message):
 
 @bot.message_handler(commands=['start'])
 def send_start(message):
-    bot.send_message(message.chat.id, f'''Приветствую {message.from_user.first_name} 👋''', reply_markup=keyboard())
+    bot.send_message(message.chat.id, f'''Приветствую {message.from_user.first_name} 👋''')
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-    bot.reply_to(message, f' Сорян {message.from_user.first_name} я еще в бета версии, команды: /start /help /go /incident /kolya')
+    bot.reply_to(message, f' Йоу {message.from_user.first_name} уже лучше но я еще в бета версии, команды: \n /start \n /help \n /onkeyboard \n /db \n /go \n')
 
 @bot.message_handler(commands=['go'])
 def send_go(message):
@@ -58,7 +56,7 @@ def chooise_incident(message):
          time.sleep(1)
          bot.send_message(message.chat.id, f'Опрос свидетелей 🐀')
          time.sleep(1)
-         bot.send_message(message.chat.id, f'Ну что кусок мяса ты сегодня не работаешь 💻')
+         bot.send_message(message.chat.id, f'Ну что кусок мяса ты сегодня работаешь 💻')
          time.sleep(1)
          if(chooise == 7):
              bot.send_message(message.chat.id, f'✌  Димон ✌')
@@ -78,7 +76,7 @@ def chooise_incident(message):
              bot.send_message(message.chat.id, f'Братанчик что-то пошло не так обратись к @Alx326')
          print(chooise)
 
-@bot.message_handler(commands=['BD'])
+@bot.message_handler(commands=['db'])
 def send_welcome(message):
     bot.reply_to(message, f'Пиздуй работать {message.from_user.username} !')
 
@@ -89,7 +87,7 @@ def get_text_messages(message):
     if message.text == '✌ Привет ✌':
         bot.reply_to(message, f'Йоу! {message.from_user.username} Если нужна помощь нажми: /help ☺') #message.from_user.username вывод имени пользователя в чате
     elif message.text == '🎰 Крути барабан 🎲':
-        bot.send_message(message.from_user.id, 'Выбераем жертву 🐀', commands=['incident'])
+        bot.message_handler(commands=['incident'])
     else:
         bot.send_message(message.from_user.id, f'{message.from_user.username} что ты там говорил про чик чирик?')
 
