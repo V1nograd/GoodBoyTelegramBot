@@ -42,11 +42,11 @@ def main():
 
     @bot.message_handler(commands=['go'])
     def send_go(message):
-        bot.send_message(message.chat.id, f'Ты пидор! ✅')
+        bot.send_message(message.chat.id, f'Ты ыыыыыыыыыыы! ✅')
 
     @bot.message_handler(commands=['db'])
     def send_for_Stas(message):
-        bot.reply_to(message, f'Пиздуй работать {message.from_user.username} !')
+        bot.reply_to(message, f'работать {message.from_user.username} !')
 
     @bot.message_handler(commands=['incident'])
     def chooise_incident(message):
@@ -87,7 +87,7 @@ def main():
             bot.send_message(message, f'Йоу! {message.from_user.username} Если нужна помощь нажми: /help ☺') #message.from_user.username вывод имени пользователя в чате
         elif message.text == "🎰 Крути барабан 🎲":
             chooise_incident(message)
-        elif message.text == "hentai": 
+        elif message.text == "hei": 
             bot.send_message(message.chat.id, f'Yamete kudasai {message.from_user.username}!')
 
 #@bot.callback_query_handler(func=lambda call: True)
